@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="NexpringThirdParty.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NexpringThirdParty"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="40*" />
+            <RowDefinition Height="40*" />
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="Assets/all_day_egg_oneline_logo.png" Width="250" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*" />
+                <RowDefinition Height="40*" />
+                <RowDefinition Height="20*" />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" x:Name="IDBox" Header="ID" VerticalAlignment="Bottom" Width="200" Margin="0,0,0,5" BorderBrush="#CCDB821F" KeyDown="IDBox_KeyDown"/>
+            <PasswordBox Grid.Row="1" x:Name="PWBox" Header="Password" VerticalAlignment="Top" Width="200" Margin="0,5,0,0" BorderBrush="#CCDB821F" KeyDown="PWBox_KeyDown"/>
+            <ProgressRing Grid.Row="2" x:Name="SigningRing" IsActive="False" Height="48" Width="48" Foreground="#FFDB821F"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="30*" />
+                <RowDefinition Height="40*" />
+            </Grid.RowDefinitions>
+            <CheckBox Grid.Row="0" x:Name="AutoLoginCheckBox" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" Content="자동 로그인"/>
+            <Button Grid.Row="1" Name="LoginButton" VerticalAlignment="Top" Content="로그인" Background="#CCDB821F" HorizontalAlignment="Center" Margin="0,15,0,0" Foreground="#FF494949" Grid.ColumnSpan="2" FontWeight="Bold" Click="LoginButton_Click"/>
+        </Grid>
+    </Grid> 
+</Page>

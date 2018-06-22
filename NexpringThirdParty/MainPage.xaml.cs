@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Credentials;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -12,6 +16,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 // 빈 페이지 항목 템플릿에 대한 설명은 https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x412에 나와 있습니다.
 
@@ -25,6 +31,18 @@ namespace NexpringThirdParty
         public MainPage()
         {
             this.InitializeComponent();
+
+            
+
+            
+
+            
+        }
+
+        private async void MessageBoxOpen(string showString)
+        {
+            var dialog = new MessageDialog(showString);
+            await dialog.ShowAsync();
         }
     }
 }

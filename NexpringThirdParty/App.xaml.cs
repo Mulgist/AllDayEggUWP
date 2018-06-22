@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,10 +27,22 @@ namespace NexpringThirdParty
         /// Singleton 응용 프로그램 개체를 초기화합니다. 이것은 실행되는 작성 코드의 첫 번째
         /// 줄이며 따라서 main() 또는 WinMain()과 논리적으로 동일합니다.
         /// </summary>
+
+        // 로컬 앱 세팅 데이터 폴더 검색
+        public static ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // 자동 로그인이 체크되어 있을때 로그아웃 시 바로 로그인되는 것 방지
+            if (localSettings.Values["isLogout"] == null)
+            {
+                localSettings.Values["isLogout"] = "false";
+            }
+            // 기본 통신 URL (에그의 IP주소)
+            localSettings.Values["defaultAddress"] = "http://192.168.1.1/";
         }
 
         /// <summary>
@@ -66,7 +79,7 @@ namespace NexpringThirdParty
                     // 탐색 스택이 복원되지 않으면 첫 번째 페이지로 돌아가고
                     // 필요한 정보를 탐색 매개 변수로 전달하여 새 페이지를
                     // 구성합니다.
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                 }
                 // 현재 창이 활성 창인지 확인
                 Window.Current.Activate();
