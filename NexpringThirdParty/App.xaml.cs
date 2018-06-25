@@ -39,7 +39,15 @@ namespace NexpringThirdParty
             // 자동 로그인이 체크되어 있을때 로그아웃 시 바로 로그인되는 것 방지
             if (localSettings.Values["isLogout"] == null)
             {
-                localSettings.Values["isLogout"] = "false";
+                localSettings.Values["isLogout"] = false;
+            }
+            if (localSettings.Values["isAutoLogin"] == null)
+            {
+                localSettings.Values["isAutoLogin"] = false;
+            }
+            if (localSettings.Values["IsBackExit"] == null)
+            {
+                localSettings.Values["IsBackExit"] = false;
             }
             // 기본 통신 URL (에그의 IP주소)
             localSettings.Values["defaultAddress"] = "http://192.168.1.1/";
