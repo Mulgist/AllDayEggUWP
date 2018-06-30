@@ -35,19 +35,18 @@ namespace NexpringThirdParty
         {
             this.InitializeComponent();
 
-            // App.titleStack.Push("홈");
+            App.titleStack.Push("홈");
+            // 내부 페이지에 HomePage 로드
             // MainSplitViewContent.Navigate(typeof(HomePage));
             HomeListBoxItem.IsSelected = false;
 
             // 뒤로가기 버튼
             SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
             {
-                Debug.WriteLine("BackRequested");
-
                 if ((MainSplitView.Content as Frame).CanGoBack)
                 {
-                    // App.titleStack.Pop();
-                    // Title.Text = App.titleStack.Peek();
+                    App.titleStack.Pop();
+                    Title.Text = App.titleStack.Peek();
                     (MainSplitView.Content as Frame).GoBack();
                     a.Handled = true;
                 }
@@ -66,7 +65,49 @@ namespace NexpringThirdParty
 
         private void HambergerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            MainSplitView.IsPaneOpen = false;
+            if (HomeListBoxItem.IsSelected)
+            {
+                App.titleStack.Push("홈");
+                Title.Text = App.titleStack.Peek();
+                // (MainSplitView.Content as Frame).Navigate(typeof(HomePage));
+                return;
+            }
+            if (LTEInfoListBoxItem.IsSelected)
+            {
+                App.titleStack.Push("LTE 정보");
+                Title.Text = App.titleStack.Peek();
+                // (MainSplitView.Content as Frame).Navigate(typeof(DocumentsListPage), "164");
+                return;
+            }
+            if (WiFiInfoListBoxItem.IsSelected)
+            {
+                App.titleStack.Push("WiFi 정보");
+                Title.Text = App.titleStack.Peek();
+                // (MainSplitView.Content as Frame).Navigate(typeof(PlanPage));
+                return;
+            }
+            if (SystemInfoListBoxItem.IsSelected)
+            {
+                App.titleStack.Push("시스템 정보");
+                Title.Text = App.titleStack.Peek();
+                // (MainSplitView.Content as Frame).Navigate(typeof(PlanPage));
+                return;
+            }
+            if (EggSettingListBoxItem.IsSelected)
+            {
+                App.titleStack.Push("Egg 설정");
+                Title.Text = App.titleStack.Peek();
+                // (MainSplitView.Content as Frame).Navigate(typeof(PlanPage));
+                return;
+            }
+            if (AppSettingListBoxItem.IsSelected)
+            {
+                App.titleStack.Push("My all-day egg 설정");
+                Title.Text = App.titleStack.Peek();
+                // (MainSplitView.Content as Frame).Navigate(typeof(PlanPage));
+                return;
+            }
         }
 
         private async void MessageBoxOpen(string showString)

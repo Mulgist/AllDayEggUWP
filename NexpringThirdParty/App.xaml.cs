@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http.Filters;
 
 namespace NexpringThirdParty
 {
@@ -30,7 +31,10 @@ namespace NexpringThirdParty
 
         // 로컬 앱 세팅 데이터 폴더 검색
         public static ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-
+        // 로그인 정보 필터
+        public static HttpBaseProtocolFilter filter = new HttpBaseProtocolFilter();
+        // MainPage의 상단 제목 스택
+        public static Stack<string> titleStack = new Stack<string>();
         public App()
         {
             this.InitializeComponent();

@@ -55,35 +55,35 @@
                                 </StackPanel>
                             </ListBoxItem>
 
-                            <ListBoxItem Name="NoticeListBoxItem" Height="48px">
+                            <ListBoxItem Name="LTEInfoListBoxItem" Height="48px">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE1E9;" Foreground="White" />
                                     <TextBlock Text="LTE 정보" FontSize="18" Margin="20,0,0,0" Foreground="White" />
                                 </StackPanel>
                             </ListBoxItem>
 
-                            <ListBoxItem Name="PlanListBoxItem" Height="48px">
+                            <ListBoxItem Name="WiFiInfoListBoxItem" Height="48px">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE701;" Foreground="White"/>
                                     <TextBlock Text="WiFi 정보" FontSize="18" Margin="20,0,0,0" Foreground="White"/>
                                 </StackPanel>
                             </ListBoxItem>
 
-                            <ListBoxItem Name="SeminarListBoxItem" Height="48px">
+                            <ListBoxItem Name="SystemInfoListBoxItem" Height="48px">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE9F5;" Foreground="White" />
                                     <TextBlock Text="시스템 정보" FontSize="18" Margin="20,0,0,0" Foreground="White" />
                                 </StackPanel>
                             </ListBoxItem>
 
-                            <ListBoxItem Name="PlayListBoxItem" Height="48px">
+                            <ListBoxItem Name="EggSettingListBoxItem" Height="48px">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE713;" Foreground="White" />
                                     <TextBlock Text="Egg 설정" FontSize="18" Margin="20,0,0,0" Foreground="White" />
                                 </StackPanel>
                             </ListBoxItem>
 
-                            <ListBoxItem Name="WorkshopListBoxItem" Height="48px">
+                            <ListBoxItem Name="AppSettingListBoxItem" Height="48px">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE71D;" Foreground="White" />
                                     <TextBlock Text="My all-day egg 설정" FontSize="18" Margin="20,0,0,0" Foreground="White" />
