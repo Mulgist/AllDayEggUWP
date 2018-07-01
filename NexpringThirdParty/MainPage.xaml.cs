@@ -110,10 +110,88 @@ namespace NexpringThirdParty
             }
         }
 
-        private async void MessageBoxOpen(string showString)
+        private async void MessageBoxOpen(string content, string title)
         {
-            var dialog = new MessageDialog(showString);
+            var dialog = new MessageDialog(content, title);
             await dialog.ShowAsync();
+        }
+
+        // 확인, 취소 버튼이 있는 메시지를 나타낸다. 그리고 확인을 눌렀는지 취소를 눌렀는지에 대한 Command를 return한다.
+        private async Task<IUICommand> YesOrNoMessageBoxOpen(string content, string title, UICommand okCommand, UICommand cancelCommand)
+        {
+            var dialog = new MessageDialog(content, title);
+            dialog.Options = MessageDialogOptions.None;
+            dialog.Commands.Add(okCommand);
+
+            dialog.DefaultCommandIndex = 0;
+            dialog.CancelCommandIndex = 0;
+
+            if (cancelCommand != null)
+            {
+                dialog.Commands.Add(cancelCommand);
+                dialog.CancelCommandIndex = (uint)dialog.Commands.Count - 1;
+            }
+
+            var command = await dialog.ShowAsync();
+            return command;
+        }
+
+        private async void UnderlineBtns_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            if ((Button)sender == RefreshBtn)
+            {
+                MessageBoxOpen("기능 준비중입니다.", "준비중");
+            }
+            else if ((Button)sender == ShutdownBtn)
+            {
+                var okCommand = new UICommand("확인", cmd => {
+                    // Egg 종료
+                    var content = CommunicationService.instance.GetXmlString("http://192.168.1.1/cgi-bin/systemreboot.cgi?Command=Poweroff");
+                    if (content != "ERROR")
+                    {
+                        // 응답이 설치
+                        MessageBoxOpen("Egg가 종료중입니다. 다시 켜기 전까지 새로운 정보를 얻을 수 없습니다.", "Power Off");
+                    }
+                    else
+                    {
+                        MessageBoxOpen("Egg 종료에 실패했습니다. 다시 한 번 시도해 주십시오.", "Power Off");
+                    }
+                });
+                var cancelCommand = new UICommand("취소", cmd => { });
+                await YesOrNoMessageBoxOpen("Egg를 종료합니다.", "Power Off", okCommand, cancelCommand);
+            }
+            else if ((Button)sender == RestartBtn)
+            {
+                var okCommand = new UICommand("확인", cmd => {
+                    // Egg 재부팅
+                    var content = CommunicationService.instance.GetXmlString("http://192.168.1.1/cgi-bin/systemreboot.cgi?Command=Reset");
+                    if (content != "ERROR")
+                    {
+                        // 응답이 설치
+                        MessageBoxOpen("Egg가 재부팅중입니다. 재부팅 소요 시간은 약 50초 입니다.", "Restart");
+                        // 재부팅 시작 후 작업: 50초동안 refresh 막기 localsetting을 사용하는 것도 좋은 방법
+                        
+                    }
+                    else
+                    {
+                        MessageBoxOpen("Egg 재부팅에 실패했습니다. 다시 한 번 시도해 주십시오.", "Restart");
+                    }
+                });
+                var cancelCommand = new UICommand("취소", cmd => { });
+                await YesOrNoMessageBoxOpen("Egg를 재부팅합니다.", "Restart", okCommand, cancelCommand);
+            }
+            else if ((Button)sender == LogoutBtn)
+            {
+                var okCommand = new UICommand("확인", cmd => {
+                    // 계정 인증정보 초기화
+                    App.filter = new HttpBaseProtocolFilter();
+                    App.localSettings.Values["isLogout"] = true;
+                    // 페이지 뒤로 가기
+                    (Window.Current.Content as Frame).GoBack();
+                });
+                var cancelCommand = new UICommand("취소", cmd => { });
+                await YesOrNoMessageBoxOpen("이 앱에서 로그아웃합니다.", "Logout", okCommand, cancelCommand);
+            }
         }
     }
 }

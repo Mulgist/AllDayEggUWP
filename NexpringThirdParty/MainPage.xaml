@@ -113,6 +113,73 @@
                             </Border>
                         </Grid>
                     </StackPanel>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Grid Height="48px">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border BorderBrush="{x:Null}" 
+                                    Height="48px" 
+                                    Width="48px">
+                                <TextBlock TextWrapping="Wrap"
+                                           FontFamily="Segoe MDL2 Assets" 
+                                           FontSize="24" 
+                                           Text="&#xE0AB;"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="White" />
+                            </Border>
+                            <Button Grid.Column="2"
+                                    Name="RefreshBtn"
+                                    FontFamily="Segoe MDL2 Assets" 
+                                    FontSize="24" 
+                                    Content="&#xE117;" 
+                                    Background="Transparent"
+                                    Height="48px"
+                                    Width="48px"
+                                    Foreground="White"
+                                    Click="UnderlineBtns_ClickAsync"
+                                    ToolTipService.ToolTip="새로 고침"/>
+                            <Button Grid.Column="3"
+                                    Name="ShutdownBtn"
+                                    FontFamily="Segoe MDL2 Assets" 
+                                    FontSize="24" 
+                                    Content="&#xE7E8;" 
+                                    Background="Transparent" 
+                                    Height="48px"
+                                    Width="48px"
+                                    Foreground="White"
+                                    Click="UnderlineBtns_ClickAsync"
+                                    ToolTipService.ToolTip="Egg 전원 끄기"/>
+                            <Button Grid.Column="4"
+                                    Name="RestartBtn"
+                                    FontFamily="Segoe MDL2 Assets" 
+                                    FontSize="24" 
+                                    Content="&#xE72C;" 
+                                    Background="Transparent" 
+                                    Height="48px"
+                                    Width="48px"
+                                    Foreground="White"
+                                    Click="UnderlineBtns_ClickAsync"
+                                    ToolTipService.ToolTip="Egg 재부팅"/>
+                            <Button Grid.Column="5"
+                                    Name="LogoutBtn"
+                                    FontFamily="Segoe MDL2 Assets" 
+                                    FontSize="24" 
+                                    Content="&#xE89F;" 
+                                    Background="Transparent" 
+                                    Height="48px"
+                                    Width="48px"
+                                    Foreground="White"
+                                    Click="UnderlineBtns_ClickAsync"
+                                    ToolTipService.ToolTip="로그아웃"/>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>

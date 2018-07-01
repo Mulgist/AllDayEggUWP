@@ -12,7 +12,7 @@ namespace NexpringThirdParty
         public static CommunicationService instance = new CommunicationService();
         private HttpClient client = new HttpClient(App.filter);
 
-        private string GetXmlString(string requestURI)
+        public string GetXmlString(string requestURI)
         {
             HttpRequestMessage request = new HttpRequestMessage();
             request.Method = HttpMethod.Get;

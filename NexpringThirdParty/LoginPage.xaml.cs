@@ -10,6 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 // 빈 페이지 항목 템플릿에 대한 설명은 https://go.microsoft.com/fwlink/?LinkId=234238에 나와 있습니다.
 
@@ -94,12 +95,12 @@ namespace NexpringThirdParty
             {
                 if (IDBox.Text == "")
                 {
-                    MessageBoxOpen("ID를 입력하십시오.");
+                    MessageBoxOpen("ID를 입력하십시오.", "로그인 오류");
                     return;
                 }
                 else if (PWBox.Password == "")
                 {
-                    MessageBoxOpen("Password를 입력하십시오.");
+                    MessageBoxOpen("Password를 입력하십시오.", "로그인 오류");
                     return;
                 }
             }
@@ -107,13 +108,15 @@ namespace NexpringThirdParty
             SigningRing.IsActive = true;
 
             string uri = App.localSettings.Values["defaultAddress"] + "cgi-bin/ltestatus.cgi?Command=Status";
+
+            // BUG: 인증이 틀리고 다시 로그인 할 때 "매개변수가 틀립니다." Error 발생. 현재 해결. App.filter를 새로 초기화시켰다.
             if (isAutoLogin)
             {
-                App.filter.ServerCredential = new PasswordCredential(uri, Convert.ToString(App.localSettings.Values["savedID"]), Convert.ToString(App.localSettings.Values["savedPW"]));
+                App.filter = new HttpBaseProtocolFilter { ServerCredential = new PasswordCredential(uri, Convert.ToString(App.localSettings.Values["savedID"]), Convert.ToString(App.localSettings.Values["savedPW"])) };
             }
             else
             {
-                App.filter.ServerCredential = new PasswordCredential(uri, IDBox.Text, PWBox.Password);
+                App.filter = new HttpBaseProtocolFilter { ServerCredential = new PasswordCredential(uri, IDBox.Text, PWBox.Password) };
             }
             
             // 잘못 로그인 시 재로그인 UI출현 방지
@@ -144,25 +147,31 @@ namespace NexpringThirdParty
                         App.localSettings.Values["savedID"] = IDBox.Text;
                         App.localSettings.Values["savedPW"] = PWBox.Password;
                     }
+                    else if (AutoLoginCheckBox.IsChecked == false && !isAutoLogin)
+                    {
+                        App.localSettings.Values["isAutoLogin"] = false;
+                        App.localSettings.Values["savedID"] = "";
+                        App.localSettings.Values["savedPW"] = "";
+                    }
                     // MainPage로 페이지 이동
                     Frame.Navigate(typeof(MainPage));
                 }
                 else
                 {
                     // 로그인에 실패하는 경우
-                    MessageBoxOpen("로그인 실패: ID 혹은 Password가 올바르지 않습니다.");
+                    MessageBoxOpen("ID 혹은 Password가 올바르지 않습니다.", "로그인 오류");
                 }
             }
             catch (Exception e)
             {
-                MessageBoxOpen("AP에서 응답이 없습니다.\n이 장치가 egg와 연결되어 있는지 확인하시고 egg의 IP주소가 192.168.1.1인지 확인해주십시오.\n" + e.Message);
+                MessageBoxOpen("이 장치가 egg와 연결되어 있는지 확인하시고 egg의 IP주소가 192.168.1.1인지 확인해주십시오.\n" + e.Message, "AP에서 응답이 없습니다.");
                 SigningRing.IsActive = false;
             }
         }
 
-        private async void MessageBoxOpen(string showString)
+        private async void MessageBoxOpen(string content, string title)
         {
-            var dialog = new MessageDialog(showString);
+            var dialog = new MessageDialog(content, title);
             await dialog.ShowAsync();
         }
 
